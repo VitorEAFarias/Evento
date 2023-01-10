@@ -20,7 +20,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'perfil', component: PerfilComponent
+    path: 'user/perfil', component: PerfilComponent
   },
   { path: 'eventos', redirectTo: 'eventos/lista' },
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'detalhe/:id', component: EventoDetalheComponent },
       { path: 'detalhe', component: EventoDetalheComponent },
       { path: 'lista', component: EventoListaComponent },
-    ]
+    ],
   },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'palestrantes', component: PalestrantesComponent },
