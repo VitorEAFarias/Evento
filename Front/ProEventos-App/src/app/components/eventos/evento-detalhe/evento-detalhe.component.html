@@ -120,7 +120,7 @@
         <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
-              <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
+              <button (click)="removerLote(template, i)" class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                 tooltip="Excluir Lote"
                 [adaptivePosition]="false"
                 [delay]="500"
@@ -144,11 +144,17 @@
             </div>
             <div class="form-group col-md-4">
               <label>Data Início</label>
-              <input [ngClass]="cssValidator(lotes.get(i+'.dataInicio'))" type="text" class="form-control" formControlName="dataInicio" placeholder="01/01/2019">
+              <input type="text" class="form-control"
+              bsDatepicker
+              [bsConfig]="bsConfigLote"
+              formControlName="dataInicio" placeholder="01/01/2019">
             </div>
             <div class="form-group col-md-4">
               <label>Data Fim</label>
-              <input [ngClass]="cssValidator(lotes.get(i+'.dataFim'))" type="text" class="form-control" formControlName="dataFim" placeholder="01/01/2019">
+              <input type="text" class="form-control"
+              bsDatepicker
+              [bsConfig]="bsConfigLote"
+              formControlName="dataFim" placeholder="01/01/2019">
             </div>
           </div>
         </fieldset>
@@ -172,3 +178,11 @@
 </div>
 </div>
 <br>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar o lote  {{this.loteAtual.nome}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDeleteLote()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDeleteLote()" >Não</button>
+  </div>
+</ng-template>
