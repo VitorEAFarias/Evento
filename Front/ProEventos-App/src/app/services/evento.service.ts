@@ -36,4 +36,14 @@ constructor(private http: HttpClient) { }
   public deleteEvento(id: number): Observable<any> {
     return this.http.delete<string>(`${this.baseURL}/${id}`).pipe(take(1));
   }
+
+  postUpload(eventoId: number, file: File): Observable<Evento> {
+    const fileToUpload = file[0] as File;
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+
+    return this.http
+    .post<Evento>(`${this.baseURL}/upload-image/${eventoId}`, formData)
+    .pipe(take(1));
+  }
 }
