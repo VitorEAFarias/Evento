@@ -149,8 +149,15 @@ namespace ProEventos.API.Controllers
                 if (evento == null) return NoContent();
                 
 
-                return await _eventoService.DeleteEvento(id) ?               
-                    Ok( new { message = "Deletado" }) : throw new Exception("Erro ao excluir evento.");                    
+                if (await _eventoService.DeleteEvento(id))
+                {
+                    DeleteImage(evento.ImagemURL);
+                    return Ok( new { message = "Deletado" });
+                } 
+                else
+                {
+                    throw new Exception("Erro ao excluir evento."); 
+                }              
                 
             }
             catch (Exception ex)

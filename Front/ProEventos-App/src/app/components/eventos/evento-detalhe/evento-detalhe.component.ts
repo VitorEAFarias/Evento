@@ -9,7 +9,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '@environments/environment.prod';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -85,7 +85,7 @@ export class EventoDetalheComponent implements OnInit{
           this.evento = { ... evento};
           this.form.patchValue(this.evento);
           if (this.evento.imagemURL !== '') {
-            this.imagemURL = 'https://localhost:5001/' + 'resources/images/' + this.evento.imagemURL;
+            this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
           }
           this.carregarLotes();
           // this.evento.lotes.forEach(lote => {
@@ -129,7 +129,7 @@ export class EventoDetalheComponent implements OnInit{
       qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       lotes: this.fb.array([])
     });
   }
