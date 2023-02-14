@@ -9,6 +9,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@environments/environment.prod';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -83,10 +84,14 @@ export class EventoDetalheComponent implements OnInit{
         (evento: Evento) => {
           this.evento = { ... evento};
           this.form.patchValue(this.evento);
-          this.evento.lotes.forEach(lote => {
-            this.carregarLotes();
-            //this.lotes.push(this.criarLote(lote));
-          });
+          if (this.evento.imagemURL !== '') {
+            this.imagemURL = 'https://localhost:5001/' + 'resources/images/' + this.evento.imagemURL;
+          }
+          this.carregarLotes();
+          // this.evento.lotes.forEach(lote => {
+
+          //   //this.lotes.push(this.criarLote(lote));
+          // });
 
         },
         (error: any) => {

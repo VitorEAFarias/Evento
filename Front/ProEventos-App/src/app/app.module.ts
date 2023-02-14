@@ -71,7 +71,7 @@ defineLocale('pt-br', ptBrLocale);
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule, //.forRoot({ type: 'ball-scale-multiple' })
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }), //.forRoot({ type: 'ball-scale-multiple' })
     NgxCurrencyModule
   ],
   providers: [
