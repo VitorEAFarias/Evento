@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using ProEventos.Application.Dtos;
-using ProEventos.Domain;
 
 namespace ProEventos.Application.Contratos
 {

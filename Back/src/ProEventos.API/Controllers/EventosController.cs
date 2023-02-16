@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Application.Dtos;
 using ProEventos.Application.Contratos;
-using ProEventos.Domain;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
