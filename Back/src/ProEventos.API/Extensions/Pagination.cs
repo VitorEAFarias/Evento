@@ -19,7 +19,7 @@ namespace ProEventos.API.Extensions
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
-            response.Headers.Add("Pagination", JsonSerializer.Serialize (pagination, options));
+            response.Headers.Add("Pagination", JsonSerializer.Serialize(pagination, options));
             response.Headers.Add("Acces-Controle-Expose-Headers", "Pagination");
         }
     }

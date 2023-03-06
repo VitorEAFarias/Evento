@@ -7,7 +7,10 @@ namespace ProEventos.API.Models
 {
     public class PaginationHeader
     {
-        public PaginationHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages)
+        public PaginationHeader(int currentPage, 
+                                int itemsPerPage, 
+                                int totalItems, 
+                                int totalPages)
         {
             this.CurrentPage = currentPage;
             this.ItemsPerPage = itemsPerPage;

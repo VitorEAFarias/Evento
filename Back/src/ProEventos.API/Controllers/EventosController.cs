@@ -39,8 +39,7 @@ namespace ProEventos.API.Controllers
                 if (eventos == null) 
                     return NoContent();
                 
-                Response.AddPagination(eventos.CurrentPage, eventos.PageSize, eventos.TotalCount,
-                eventos.TotalPages);
+                Response.AddPagination(eventos.CurrentPage, eventos.PageSize, eventos.TotalCount, eventos.TotalPages);
 
                 return Ok(eventos);
             }

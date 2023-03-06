@@ -29,7 +29,7 @@ namespace ProEventos.Persistence.Models
         )
         {
             var count = await source.CountAsync();
-            var items = await source.Skip((pageNumber-1) * pageSize)
+            var items = await source.Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
                                     .ToListAsync();
 

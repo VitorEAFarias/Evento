@@ -34,6 +34,7 @@ export class PerfilComponent implements OnInit {
   }
 
   private carregarUsuario(): void {
+    console.log("aqui")
     this.spinner.show();
     this.accountService.getUser().subscribe(
       (userRetorno: UserUpdate) => {
