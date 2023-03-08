@@ -25,19 +25,19 @@ namespace ProEventos.Application
         {
             try
             {
-                var redeSocial = _mapper.Map<RedeSocial>(model);
+                var RedeSocial = _mapper.Map<RedeSocial>(model);
                 if (isEvento)
                 {
-                    redeSocial.EventoId = Id;
-                    redeSocial.PalestranteId = null;
+                    RedeSocial.EventoId = Id;
+                    RedeSocial.PalestranteId = null;
                 } 
                 else
                 {
-                    redeSocial.EventoId = null;
-                    redeSocial.PalestranteId = Id;
+                    RedeSocial.EventoId = null;
+                    RedeSocial.PalestranteId = Id;
                 }
 
-                _redeSocialPersist.Add<RedeSocial>(redeSocial);
+                _redeSocialPersist.Add<RedeSocial>(RedeSocial);
 
                 await _redeSocialPersist.SaveChangesAsync();
             }
@@ -51,8 +51,8 @@ namespace ProEventos.Application
         {
             try
             {
-                var redesSociais = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
-                if (redesSociais == null) return null;
+                var RedeSocials = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
+                if (RedeSocials == null) return null;
 
                 foreach (var model in models)
                 {
@@ -62,20 +62,20 @@ namespace ProEventos.Application
                     }
                     else
                     {
-                        var redeSocial = redesSociais.FirstOrDefault(redeSocial => redeSocial.Id == model.Id);
+                        var RedeSocial = RedeSocials.FirstOrDefault(RedeSocial => RedeSocial.Id == model.Id);
                         model.EventoId = eventoId;
 
-                        _mapper.Map(model, redeSocial);
+                        _mapper.Map(model, RedeSocial);
 
-                        _redeSocialPersist.Update<RedeSocial>(redeSocial);
+                        _redeSocialPersist.Update<RedeSocial>(RedeSocial);
 
                         await _redeSocialPersist.SaveChangesAsync();
                     }
                 }
 
-                var redeSocialRetorno = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
+                var RedeSocialRetorno = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
 
-                return _mapper.Map<RedeSocialDto[]>(redeSocialRetorno);
+                return _mapper.Map<RedeSocialDto[]>(RedeSocialRetorno);
             }
             catch (Exception ex)
             {
@@ -87,8 +87,8 @@ namespace ProEventos.Application
         {
             try
             {
-                var redesSociais = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
-                if (redesSociais == null) return null;
+                var RedeSocials = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
+                if (RedeSocials == null) return null;
 
                 foreach (var model in models)
                 {
@@ -98,20 +98,20 @@ namespace ProEventos.Application
                     }
                     else
                     {
-                        var redeSocial = redesSociais.FirstOrDefault(RedeSocial => RedeSocial.Id == model.Id);
+                        var RedeSocial = RedeSocials.FirstOrDefault(RedeSocial => RedeSocial.Id == model.Id);
                         model.PalestranteId = palestranteId;
 
-                        _mapper.Map(model, redeSocial);
+                        _mapper.Map(model, RedeSocial);
 
-                        _redeSocialPersist.Update<RedeSocial>(redeSocial);
+                        _redeSocialPersist.Update<RedeSocial>(RedeSocial);
 
                         await _redeSocialPersist.SaveChangesAsync();
                     }
                 }
 
-                var redeSocialRetorno = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
+                var RedeSocialRetorno = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
 
-                return _mapper.Map<RedeSocialDto[]>(redeSocialRetorno);
+                return _mapper.Map<RedeSocialDto[]>(RedeSocialRetorno);
             }
             catch (Exception ex)
             {
@@ -123,10 +123,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redeSocial = await _redeSocialPersist.GetRedeSocialEventoByIdsAsync(eventoId, redeSocialId);
-                if (redeSocial == null) throw new Exception("Rede Social por Evento para delete não encontrado.");
+                var RedeSocial = await _redeSocialPersist.GetRedeSocialEventoByIdsAsync(eventoId, redeSocialId);
+                if (RedeSocial == null) throw new Exception("Rede Social por Evento para delete não encontrado.");
 
-                _redeSocialPersist.Delete<RedeSocial>(redeSocial);
+                _redeSocialPersist.Delete<RedeSocial>(RedeSocial);
                 return await _redeSocialPersist.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -139,10 +139,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redeSocial = await _redeSocialPersist.GetRedeSocialPalestranteByIdsAsync(palestranteId, redeSocialId);
-                if (redeSocial == null) throw new Exception("Rede Social por Palestrante para delete não encontrado.");
+                var RedeSocial = await _redeSocialPersist.GetRedeSocialPalestranteByIdsAsync(palestranteId, redeSocialId);
+                if (RedeSocial == null) throw new Exception("Rede Social por Palestrante para delete não encontrado.");
 
-                _redeSocialPersist.Delete<RedeSocial>(redeSocial);
+                _redeSocialPersist.Delete<RedeSocial>(RedeSocial);
                 return await _redeSocialPersist.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -155,10 +155,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redesSociais = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
-                if (redesSociais == null) return null;
+                var RedeSocials = await _redeSocialPersist.GetAllByEventoIdAsync(eventoId);
+                if (RedeSocials == null) return null;
 
-                var resultado = _mapper.Map<RedeSocialDto[]>(redesSociais);
+                var resultado = _mapper.Map<RedeSocialDto[]>(RedeSocials);
 
                 return resultado;
             }
@@ -172,10 +172,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redesSociais = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
-                if (redesSociais == null) return null;
+                var RedeSocials = await _redeSocialPersist.GetAllByPalestranteIdAsync(palestranteId);
+                if (RedeSocials == null) return null;
 
-                var resultado = _mapper.Map<RedeSocialDto[]>(redesSociais);
+                var resultado = _mapper.Map<RedeSocialDto[]>(RedeSocials);
 
                 return resultado;
             }
@@ -189,10 +189,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redeSocial = await _redeSocialPersist.GetRedeSocialEventoByIdsAsync(eventoId, redeSocialId);
-                if (redeSocial == null) return null;
+                var RedeSocial = await _redeSocialPersist.GetRedeSocialEventoByIdsAsync(eventoId, redeSocialId);
+                if (RedeSocial == null) return null;
 
-                var resultado = _mapper.Map<RedeSocialDto>(redeSocial);
+                var resultado = _mapper.Map<RedeSocialDto>(RedeSocial);
 
                 return resultado;
             }
@@ -206,10 +206,10 @@ namespace ProEventos.Application
         {
             try
             {
-                var redeSocial = await _redeSocialPersist.GetRedeSocialPalestranteByIdsAsync(palestranteId, redeSocialId);
-                if (redeSocial == null) return null;
+                var RedeSocial = await _redeSocialPersist.GetRedeSocialPalestranteByIdsAsync(palestranteId, redeSocialId);
+                if (RedeSocial == null) return null;
 
-                var resultado = _mapper.Map<RedeSocialDto>(redeSocial);
+                var resultado = _mapper.Map<RedeSocialDto>(RedeSocial);
 
                 return resultado;
             }

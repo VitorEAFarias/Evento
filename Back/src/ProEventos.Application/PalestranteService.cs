@@ -11,29 +11,29 @@ namespace ProEventos.Application
 {
     public class PalestranteService : IPalestranteService
     {
-        public readonly IPalestrantePersist _palestrantePersist;
+        private readonly IPalestrantePersist _palestrantePersist;
         private readonly IMapper _mapper;
         public PalestranteService(IPalestrantePersist palestrantePersist,
                                   IMapper mapper)
-        {             
-            _palestrantePersist = palestrantePersist;    
-            _mapper = mapper;       
+        {
+            _palestrantePersist = palestrantePersist;
+            _mapper = mapper;
         }
 
         public async Task<PalestranteDto> AddPalestrantes(int userId, PalestranteAddDto model)
         {
             try
             {
-                var palestrante = _mapper.Map<Palestrante>(model);
-                palestrante.UserId = userId;
+                var Palestrante = _mapper.Map<Palestrante>(model);
+                Palestrante.UserId = userId;
 
-                _palestrantePersist.Add<Palestrante>(palestrante);
+                _palestrantePersist.Add<Palestrante>(Palestrante);
 
                 if (await _palestrantePersist.SaveChangesAsync())
                 {
-                    var palestranteRetorno = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
+                    var PalestranteRetorno = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
 
-                    return _mapper.Map<PalestranteDto>(palestranteRetorno);                    
+                    return _mapper.Map<PalestranteDto>(PalestranteRetorno);
                 }
                 return null;
             }
@@ -47,27 +47,26 @@ namespace ProEventos.Application
         {
             try
             {
-                var palestrante = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
-                if (palestrante == null)
-                    return null;
+                var Palestrante = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
+                if (Palestrante == null) return null;
 
-                model.Id = palestrante.Id;
+                model.Id = Palestrante.Id;
                 model.UserId = userId;
 
-                _mapper.Map(model, palestrante);
+                _mapper.Map(model, Palestrante);
 
-                _palestrantePersist.Update<Palestrante>(palestrante);
+                _palestrantePersist.Update<Palestrante>(Palestrante);
 
                 if (await _palestrantePersist.SaveChangesAsync())
                 {
-                    var palestranteRetorno = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
+                    var PalestranteRetorno = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, false);
 
-                    return _mapper.Map<PalestranteDto>(palestranteRetorno);                  
+                    return _mapper.Map<PalestranteDto>(PalestranteRetorno);
                 }
                 return null;
             }
-            catch (Exception ex) 
-            {                
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -76,43 +75,39 @@ namespace ProEventos.Application
         {
             try
             {
-                var palestrantes = await _palestrantePersist.GetAllPalestrantesAsync(pageParams, includeEventos);
+                var Palestrantes = await _palestrantePersist.GetAllPalestrantesAsync(pageParams, includeEventos);
+                if (Palestrantes == null) return null;
 
-                if (palestrantes == null)
-                    return null;
+                var resultado = _mapper.Map<PageList<PalestranteDto>>(Palestrantes);
 
-                var resultado = _mapper.Map<PageList<PalestranteDto>>(palestrantes);
-           
-                resultado.CurrentPage = palestrantes.CurrentPage;
-                resultado.TotalPages = palestrantes.CurrentPage;
-                resultado.PageSize = palestrantes.PageSize;
-                resultado.TotalCount = palestrantes.TotalCount;
+                resultado.CurrentPage = Palestrantes.CurrentPage;
+                resultado.TotalPages = Palestrantes.TotalPages;
+                resultado.PageSize = Palestrantes.PageSize;
+                resultado.TotalCount = Palestrantes.TotalCount;
 
                 return resultado;
             }
             catch (Exception ex)
-            {                
+            {
                 throw new Exception(ex.Message);
             }
-        } 
+        }
 
         public async Task<PalestranteDto> GetPalestranteByUserIdAsync(int userId, bool includeEventos = false)
         {
             try
             {
-                var palestrante = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, includeEventos);
+                var Palestrante = await _palestrantePersist.GetPalestranteByUserIdAsync(userId, includeEventos);
+                if (Palestrante == null) return null;
 
-                if (palestrante == null)
-                    return null;
+                var resultado = _mapper.Map<PalestranteDto>(Palestrante);
 
-                var resultado = _mapper.Map<PalestranteDto>(palestrante);
-           
                 return resultado;
             }
             catch (Exception ex)
-            {                
+            {
                 throw new Exception(ex.Message);
             }
-        }  
+        }
     }
 }

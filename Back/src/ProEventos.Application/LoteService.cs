@@ -11,14 +11,17 @@ namespace ProEventos.Application
 {
     public class LoteService : ILoteService
     {
-        public readonly IGeralPersist _geralPersist;
-        public readonly ILotePersist _lotePersist;
+        private readonly IGeralPersist _geralPersist;
+        private readonly ILotePersist _lotePersist;
         private readonly IMapper _mapper;
-        public LoteService(IGeralPersist geralPersist, ILotePersist lotePersist, IMapper mapper)
-        {            
-            _geralPersist = geralPersist; 
-            _lotePersist = lotePersist;    
-            _mapper = mapper;       
+
+        public LoteService(IGeralPersist geralPersist,
+                           ILotePersist lotePersist,
+                           IMapper mapper)
+        {
+            _geralPersist = geralPersist;
+            _lotePersist = lotePersist;
+            _mapper = mapper;
         }
 
         public async Task AddLote(int eventoId, LoteDto model)
@@ -43,8 +46,7 @@ namespace ProEventos.Application
             try
             {
                 var lotes = await _lotePersist.GetLotesByEventoIdAsync(eventoId);
-                if (lotes == null)
-                    return null;
+                if (lotes == null) return null;
 
                 foreach (var model in models)
                 {
@@ -67,11 +69,10 @@ namespace ProEventos.Application
 
                 var loteRetorno = await _lotePersist.GetLotesByEventoIdAsync(eventoId);
 
-                return _mapper.Map<LoteDto[]>(loteRetorno);                  
-                
+                return _mapper.Map<LoteDto[]>(loteRetorno);
             }
-            catch (Exception ex) 
-            {                
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -80,55 +81,48 @@ namespace ProEventos.Application
         {
             try
             {
-                var lote = await _lotePersist.GetLoteByIdAsync(eventoId, loteId);
-                if (lote == null)
-                    throw new Exception("Lote para deletar não encontrado");
+                var lote = await _lotePersist.GetLoteByIdsAsync(eventoId, loteId);
+                if (lote == null) throw new Exception("Lote para delete não encontrado.");
 
                 _geralPersist.Delete<Lote>(lote);
-                
-                    return await _geralPersist.SaveChangesAsync();                    
-                
+                return await _geralPersist.SaveChangesAsync();
             }
-            catch (Exception ex) 
-            {                
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
-        }  
+        }
 
         public async Task<LoteDto[]> GetLotesByEventoIdAsync(int eventoId)
         {
             try
             {
                 var lotes = await _lotePersist.GetLotesByEventoIdAsync(eventoId);
-
-                if (lotes == null)
-                    return null;
+                if (lotes == null) return null;
 
                 var resultado = _mapper.Map<LoteDto[]>(lotes);
-           
+
                 return resultado;
             }
             catch (Exception ex)
-            {                
+            {
                 throw new Exception(ex.Message);
             }
         }
 
-        public async Task<LoteDto> GetLoteByIdAsync(int eventoId, int loteId)
+        public async Task<LoteDto> GetLoteByIdsAsync(int eventoId, int loteId)
         {
             try
             {
-                var lote = await _lotePersist.GetLoteByIdAsync(eventoId, loteId);
-
-                if (lote == null)
-                    return null;
+                var lote = await _lotePersist.GetLoteByIdsAsync(eventoId, loteId);
+                if (lote == null) return null;
 
                 var resultado = _mapper.Map<LoteDto>(lote);
-           
+
                 return resultado;
             }
             catch (Exception ex)
-            {                
+            {
                 throw new Exception(ex.Message);
             }
         }

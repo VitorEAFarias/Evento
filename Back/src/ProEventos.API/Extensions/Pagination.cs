@@ -1,4 +1,7 @@
 using System.Text.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ProEventos.API.Models;
 
@@ -10,9 +13,9 @@ namespace ProEventos.API.Extensions
             int currentPage, int itemsPerPage, int totalItems, int totalPages)
         {
             var pagination = new PaginationHeader(currentPage,
-                                                 itemsPerPage,
-                                                 totalItems,
-                                                 totalPages);
+                                                  itemsPerPage,
+                                                  totalItems,
+                                                  totalPages);
 
             var options = new JsonSerializerOptions
             {
@@ -20,7 +23,7 @@ namespace ProEventos.API.Extensions
             };
 
             response.Headers.Add("Pagination", JsonSerializer.Serialize(pagination, options));
-            response.Headers.Add("Acces-Controle-Expose-Headers", "Pagination");
+            response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
     }
 }

@@ -13,10 +13,10 @@ namespace ProEventos.Persistence
         private readonly ProEventosContext _context;
         public EventoPersist(ProEventosContext context)
         {
-            _context = context;  
-            // _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;          
+            _context = context;
+            // _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        
+
         public async Task<PageList<Evento>> GetAllEventosAsync(int userId, PageParams pageParams, bool includePalestrantes = false)
         {
             IQueryable<Evento> query = _context.Eventos
@@ -32,8 +32,8 @@ namespace ProEventos.Persistence
 
             query = query.AsNoTracking()
                          .Where(e => (e.Tema.ToLower().Contains(pageParams.Term.ToLower()) ||
-                                      e.Local.ToLower().Contains(pageParams.Term.ToLower())) && 
-                                      e.UserId == userId)
+                                      e.Local.ToLower().Contains(pageParams.Term.ToLower())) &&
+                                     e.UserId == userId)
                          .OrderBy(e => e.Id);
 
             return await PageList<Evento>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);
@@ -52,12 +52,10 @@ namespace ProEventos.Persistence
                     .ThenInclude(pe => pe.Palestrante);
             }
 
-            query = query
-                .AsNoTracking()
-                .OrderBy(e => e.Id)
-                .Where(e => e.Id == eventoId && e.UserId == userId);
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == eventoId && e.UserId == userId);
 
             return await query.FirstOrDefaultAsync();
-        }      
+        }
     }
 }
