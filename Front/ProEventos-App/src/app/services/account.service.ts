@@ -5,9 +5,7 @@ import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { environment } from '@environments/environment';
 import { map, Observable, ReplaySubject, take } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
