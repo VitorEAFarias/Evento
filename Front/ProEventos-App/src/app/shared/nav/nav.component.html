@@ -24,9 +24,11 @@
           </li>
         </ng-container>
       </ul>
-      <div *ngIf="(accountService.currentUser$ | async) === null" class="navbar-nav mr-3 d-xs-none d-none d-md-block">
-        <a class="btn btn-light mr-2 border" routerLink="/user/login">Entrar</a>
-        <a class="btn btn-warning" routerLink="/user/registration">Me Cadastrar</a>
+      <div class="navbar-nav mr-3 d-xs-none d-none d-md-block">
+        <ng-container  *ngIf="(accountService.currentUser$ | async) === null">
+          <a class="btn btn-light mr-2 border" routerLink="/user/login">Entrar</a>
+          <a class="btn btn-warning" routerLink="/user/registration">Me Cadastrar</a>
+        </ng-container>
       </div>
       <ul *ngIf="(accountService.currentUser$ | async) !== null" class="navbar-nav">
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
